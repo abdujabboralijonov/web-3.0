@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Barcha Mahsulotlar</h1>
+
+  <form method="GET" action="{% url 'product_list' %}">
+      <input type="text" name="q" placeholder="Qidirish..." value="{{ request.GET.q }}">
+      <button type="submit">Qidir</button>
+  </form>
+
+  <ul>
+    {% for category in categories %}
+      <li><a href="?category={{ category.id }}">{{ category.name }} ({{ category.product_count }})</a></li>
+    {% endfor %}
+  </ul>
+
+  <ul>
+    {% for product in products %}
+      <li>
+        <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - {{ product.price }} UZS
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

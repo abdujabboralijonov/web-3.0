@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p>{{ product.description }}</p>
+
+  <h2>Izohlar</h2>
+  {% for comment in comments %}
+    <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }} ({{ comment.rating }}/5)</p>
+  {% empty %}
+    <p>Hozircha izohlar mavjud emas.</p>
+  {% endfor %}
+
+  <h3>Izoh qoldirish</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Yuborish</button>
+  </form>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
